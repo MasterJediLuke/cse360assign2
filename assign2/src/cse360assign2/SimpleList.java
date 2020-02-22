@@ -22,18 +22,18 @@ public class SimpleList {
     private int count;      //tracks the number of elements in array 
 
     
-    //Constructors
+    ///// Constructors ///// 
     /**
      * SimpleList() constructor. Creates an array to hold 10 integers and sets
      * count to zero.
      */
-    public SimpleList() {
-        list = new int[SIZE];
-        count = 0;
-    }// End of constructor 
+	public SimpleList() {
+		list = new int[SIZE];
+		count = 0;
+	}// End of constructor 
 
     
-    // Methods
+    ///// Mutator methods /////
     
     /**
      * add() method. Adds the parameter to the beginning of the list (index = 0)
@@ -43,21 +43,21 @@ public class SimpleList {
      *
      * @param num -int value to added.
      */
-    public void add(int num) {
-        
-    	//grow array if at max
-    	if ( count == list.length) {
-    		growArray();
-    	}
-    	
-    	//move elements over one
-        for (int index = (count - 1); index >= 0; index--) {
-            list[index + 1] = list[index];    
-        }
-            
-        list[0] = num;     // places the parameter in front
-        count++;
-    } // End of add() method 
+	public void add(int num) {
+
+		// grow array if at max
+		if (count == list.length) {
+			growArray();
+		}
+
+		// move elements over one
+		for (int index = (count - 1); index >= 0; index--) {
+			list[index + 1] = list[index];
+		}
+
+		list[0] = num; // places the parameter in front
+		count++;
+	} // End of add() method
 
     
     /**
@@ -69,69 +69,41 @@ public class SimpleList {
      *
      * @param num - int value to remove.
      */
-    public void remove(int num) {
-        int position = search(num); //gets position
+	public void remove(int num) {
+		int position = search(num); // gets position
 
-        if (position != -1) {      // removes only if position found
-            for (int index = position; index < count - 1; index++) {
-                list[index] = list[index + 1];
-            }
-            count--;
-        }
-         
-        if ((100 - ((count * 100) / list.length)) > 25) {
-        	shrinkArray();
-        }
+		if (position != -1) { // removes only if position found
+			for (int index = position; index < count - 1; index++) {
+				list[index] = list[index + 1];
+			}
+			count--;
+		}
 
-    } // End of remove() method
+		// shrinks array if conditions met
+		if (count != 0 && (100 - ((count * 100) / list.length)) > 25) {
+			shrinkArray();
+		}
 
-    
-    /**
-     * count() method. Returns the count value.
-     *
-     * @return - int number of elements
-     */
-    public int count() {
-        return count;
-    } // End of count() method
+	} // End of remove() method
 
     
     /**
-     * toString() method. Returns the list as a String. A space is placed 
-     * after each element except the last.
-     *
-     * @return - String of the array
+     *  append() method. Adds the parameter to the end of the list. If the list 
+     *  is full the method calls the growArray() method.
+     * @param num
      */
-    @Override
-    public String toString() {
-        String arrayString = "";
-        for (int index = 0; index < count; index++) {
-            arrayString += Integer.toString(list[index]);
-            if (index < count - 1)
-                arrayString += " ";
-        }
-        return arrayString;
-    } // End of toString() method
+	public void append(int num) {
 
-    
-    /**
-     * search() method. Returns the location of the parameter in the list. If
-     * the parameter is not listed then returns -1.
-     *
-     * @param val - the value to be found
-     * @return - int - location in the array
-     */
-    public int search(int val) {
-        int pos = -1;
-        for (int index = 0; index < count; index++) {
-            if (list[index] == val) {
-                pos = index;
-            }
-        }
+		// grow array if at max
+		if (count == list.length) {
+			growArray();
+		}
 
-        return pos;
-    } // End of search() method
+		list[count] = num;
 
+		count++;
+
+	} // End of append() method
 
     
     /**
@@ -140,19 +112,28 @@ public class SimpleList {
      * 50% larger than the existing full list, copy all elements and then rename
      * the temporary array as list[].
      */
-    private void growArray() {
-    	// Create temporary array
-    	int temp[] = new int[(int) (count * 1.5)];
-    	
-    	// Copy array
-    	for(int i = 0 ; i < count ; i ++) {
-    		temp[i] = list[i];
-    		
-    	}
-    	
-    	list = temp;
-    	 	
-    } // End of growArray() method
+	private void growArray() {
+		// temporary array size logic
+		int size;
+		
+		if (count == 1) {
+			size = 2;
+		} else {
+			size = (int) (count * 1.5);
+		}
+		
+		// Create temporary array
+		int temp[] = new int[size];
+
+		// Copy array
+		for (int index = 0; index < count; index++) {
+			temp[index] = list[index];
+
+		}
+
+		list = temp;
+
+	} // End of growArray() method
     		
 
     /**
@@ -161,27 +142,86 @@ public class SimpleList {
      * a temporary array of size 'count', copies all the elements and then 
      * renames the temporary array as list[].
      */
-    private void shrinkArray() {
-    	// create temporary array
-    	int temp[] = new int[count];
-    	
-    	// Copy array
-    	for(int i = 0 ; i < count ; i ++) {
-    		temp[i] = list[i];
-    	}
-    	list= temp;
-    	
-    } // End of shrinkArray() method
+	private void shrinkArray() {
+		// create temporary array
+		int temp[] = new int[count];
+
+		// Copy array
+		for (int index = 0; index < count; index++) {
+			temp[index] = list[index];
+		}
+		list = temp;
+
+	} // End of shrinkArray() method
+    
+
+    
+    //// Getter methods ////
+    
+    /**
+     * count() method. Returns the count value.
+     *
+     * @return - int number of elements
+     */
+	public int count() {
+		return count;
+	} // End of count() method
     
     
     /**
-     * arraySize(). Returns the total size of the list[] array.
+     * size(). Returns the total size of the list[] array.
      * @return - int - Array size.
      */
-    public int arraySize() {
-    	
-    	return list.length;
-    }
+	public int size() {
+		return list.length;
+	} // End of arraySize() method
     
+
+    /**
+     * first() method. Returns the first element in the list[] array.
+     * @return - int - first element
+     */
+	public int first() {
+		return list[0];
+	} // End of first() method
+    
+    
+    /**
+     * search() method. Returns the location of the parameter in the list. If
+     * the parameter is not listed then returns -1.
+     *
+     * @param val - the value to be found
+     * @return - int - location in the array
+     */
+	public int search(int val) {
+		int pos = -1;
+		for (int index = 0; index < count; index++) {
+			if (list[index] == val) {
+				pos = index;
+			}
+		}
+
+		return pos;
+	} // End of search() method
+    
+    
+	/**
+	 * toString() method. Returns the list as a String. A space is placed after 
+	 * each element except the last.
+	 *
+	 * @return - String of the array
+	 */
+	@Override
+	public String toString() {
+		String arrayString = "";
+		for (int index = 0; index < count; index++) {
+			arrayString += Integer.toString(list[index]);
+			if (index < count - 1)
+				arrayString += " ";
+		}
+		return arrayString;
+	} // End of toString() method
+    
+
 }// End of class SimpeList()
 
