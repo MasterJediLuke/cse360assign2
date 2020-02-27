@@ -2,14 +2,15 @@ package cse360assign2;
 /**
  * @author Luke Dantuono <br>
  * Class ID: 191 <br>
- * Assignment: assign1 <br>
- * Date: 3 February 2020 <br>
+ * Assignment: assign2 <br>
+ * Date: 21 February 2020 <br>
  * Desc: A class called SimpleList. Used for JUnit testing. The class will 
  * initialize an int array of size 10. The class will allow for the adding and 
  * removing of elements as well as a counter to track the number of elements in
- * the array. If an element is added to a full array the element at the end is 
- * dropped off. The class also has getters that will return the counter and 
- * search the array for a given value. 
+ * the array. If an element is added to a full array the array will increase 
+ * 50%. If there are more than 25% empty spaces in the array the array will
+ * decrease in size. The class also has getters that will return the counter and 
+ * search the array for a given value as well as the array length. 
  */
 
 public class SimpleList {
@@ -178,12 +179,29 @@ public class SimpleList {
     
 
     /**
-     * first() method. Returns the first element in the list[] array.
+     * first() method. Returns the first element in the list[] array. If there 
+     * are no elements the method will return -1.
      * @return - int - first element
      */
 	public int first() {
-		return list[0];
+		if (count == 0)
+			return -1;
+		else
+		    return list[0];
 	} // End of first() method
+	
+	
+	/**
+	 * last() method. Returns the last element in the list[] array. If there are
+	 * no elements the method will return -1.
+	 * @return
+	 */
+	public int last() {
+		if (count == 0)
+			return -1;
+		else
+			return list[count -1];
+	} // End of last() method
     
     
     /**
@@ -199,6 +217,8 @@ public class SimpleList {
 			if (list[index] == val) {
 				pos = index;
 			}
+			if(pos > -1)
+				index = (count + 1);
 		}
 
 		return pos;
