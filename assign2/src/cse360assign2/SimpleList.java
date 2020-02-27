@@ -139,13 +139,13 @@ public class SimpleList {
 
     /**
      * shrinkArray() method. Called when the remove() method, after removing an
-     * element, sees that the list[] array is 25% or more empty spaces. Creates 
+     * element, sees that the list[] array has 25% or more empty spaces. Creates 
      * a temporary array of size 'count', copies all the elements and then 
      * renames the temporary array as list[].
      */
 	private void shrinkArray() {
 		// create temporary array
-		int temp[] = new int[count];
+		int temp[] = new int[((list.length * 75) / 100)];
 
 		// Copy array
 		for (int index = 0; index < count; index++) {
