@@ -4,13 +4,15 @@ package cse360assign2;
  * Class ID: 191 <br>
  * Assignment: assign2 <br>
  * Date: 21 February 2020 <br>
- * Desc: A class called SimpleList. Used for JUnit testing. The class will 
- * initialize an int array of size 10. The class will allow for the adding and 
- * removing of elements as well as a counter to track the number of elements in
- * the array. If an element is added to a full array the array will increase 
- * 50%. If there are more than 25% empty spaces in the array the array will
- * decrease in size. The class also has getters that will return the counter and 
- * search the array for a given value as well as the array length. 
+ * Desc: A class called SimpleList. The class will initialize an int array of 
+ * size 10. The class will allow for the adding and removing of elements as well
+ * as a counter to track the number of elements in the array. If an element is 
+ * added to a full array the array will increase 50%. If there are more than 25%
+ * empty spaces in the array the array will decrease in size by 25%. The class 
+ * also has getters that will return the counter, search the array for a given 
+ * value, provide the array length, the first value in the array and the last 
+ * value in the array.
+ * GitHub URL: https://github.com/MasterJediLuke/cse360assign2 
  */
 
 public class SimpleList {
@@ -140,8 +142,8 @@ public class SimpleList {
     /**
      * shrinkArray() method. Called when the remove() method, after removing an
      * element, sees that the list[] array has 25% or more empty spaces. Creates 
-     * a temporary array of size 'count', copies all the elements and then 
-     * renames the temporary array as list[].
+     * a temporary array of a size that is 25% less than the original, copies 
+     * all the elements and then renames the temporary array as list[].
      */
 	private void shrinkArray() {
 		// create temporary array
@@ -156,7 +158,6 @@ public class SimpleList {
 	} // End of shrinkArray() method
     
 
-    
     //// Getter methods ////
     
     /**
